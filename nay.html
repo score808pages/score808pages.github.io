@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Player now | 重新加载页面</title>
+  <link rel="icon" href="https://808.beritanasional.eu.org/favicon.ico" type="image/x-icon" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      overflow: hidden;
+    }
+
+    iframe#view {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 2;
+    }
+
+    /* Loader modern brand style */
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 64px;
+      height: 64px;
+      border: 6px solid #38bdf8;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .loader-text {
+      position: absolute;
+      top: calc(50% + 40px);
+      left: 50%;
+      transform: translateX(-50%);
+      color: #38bdf8;
+      font-size: 16px;
+      font-weight: 500;
+      z-index: 3;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Branding pojok */
+    .branding {
+      position: fixed;
+      top: 12px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: #38bdf8;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: monospace;
+      z-index: 5;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+    }
+
+.flotiads{position:fixed;bottom:0;left:0;width:100%;min-height:70px;padding:10px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 -4px 10px rgb(0 0 0 / .1);z-index:9999}.flotiads-close{position:absolute;top:-30px;right:0;background:#f1f5f9;border-radius:12px 0 0 12px;width:30px;height:30px;display:flex;align-items:center;justify-content:center}.flotiads-close svg{width:20px;height:20px;fill:#000}@media (max-width:600px){.demologo{font-size:14px;padding-left:36px;background-size:20px}.flotiads{min-height:60px;padding:8px}.flotiads-close{width:26px;height:26px}.closebutton{font-size:24px}}img[src^="https://um.simpli.fi/"],img[src^="https://i.liadm.com/"]{display:none}
+ #channel-info{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e5e7eb;padding:12px 20px;display:flex;align-items:center;gap:12px;z-index:999}.channel-logo{width:48px;height:48px;border-radius:50%}.channel-details{flex-grow:1}.channel-name{font-weight:600;font-size:16px;color:#111}.sub-count{font-size:14px;color:#555}.subscribe-btn{background-color:#ff0000;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700;cursor:pointer;text-decoration:none}@media (max-width:600px){.channel-name{font-size:15px}.sub-count{font-size:13px}.subscribe-btn{padding:6px 10px;font-size:14px}.channel-logo{width:40px;height:40px}}
+ </style>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader" class="loader"></div>
+  <div id="loader-text" class="loader-text">Memuat Streaming...</div>
+
+  <!-- Branding -->
+  <div class="branding">www.beritanasional.eu.org</div>
+
+  <!-- Iframe -->
+  <iframe id="view" loading="lazy" allowfullscreen></iframe>
+  <div class="flotiads">
+    <div class="flotiads-content">
+        <div id="channel-info">
+    <img src="https://yt3.ggpht.com/H72wwf9NfqjZ9lwcIX7mAnToh1mAoVkokGAxCyx6JVtyPYGUYhQHuNk3X7sidA9MOI6F-LtaJA=s48-c-k-c0x00ffffff-no-rj" class="channel-logo" alt="Channel Logo score808">
+    <div class="channel-details">
+      <div class="channel-name">808 News</div>
+      <div class="sub-count">1,24 jt subscriber</div>
+    </div>
+    <a href="https://www.youtube.com/@808footballnews?sub_confirmation=1" target="_blank" class="subscribe-btn">Subscribe</a>
+  </div>
+    </div>
+    <div class="flotiads-close" onclick="this.parentElement.style.display='none'">
+      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </div>
+  </div>
+  <!-- JS -->
+  <script>
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("@");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("+");
+        if (pair[0] == variable) {
+          return pair[1];
+        }
+      }
+      return false;
+    }
+
+    function base64Decode(str) {
+      try {
+        return decodeURIComponent(escape(atob(str)));
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function hideLoader() {
+      document.getElementById('loader').classList.add('hidden');
+      document.getElementById('loader-text').classList.add('hidden');
+    }
+
+    window.onload = function () {
+      const encodedUrl = getQueryVariable("url");
+      if (encodedUrl) {
+        const url = base64Decode(encodedUrl);
+        if (url) {
+          const iframe = document.getElementById('view');
+          iframe.src = url;
+          iframe.onload = hideLoader;
+        } else {
+          alert("Gagal decode URL streaming.");
+          hideLoader();
+        }
+      } else {
+        alert("Parameter URL streaming tidak ditemukan.");
+        hideLoader();
+      }
+    };
+  </script>
+<script type='text/javascript' src='//undoneknit.com/d1/ef/2e/d1ef2edb673457267b8f1e6428b7d568.js'></script>
+<script type='text/javascript' src='//undoneknit.com/cc/d1/05/ccd105eae443de97afecd1774314554f.js'></script>
+</body>
+</html>
